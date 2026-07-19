@@ -9,12 +9,15 @@ e use *Configurações → Gerenciamento de dados salvos → Armazenamento USB*.
 > Os saves são vinculados à conta `6f5440249bc89152`. Em outra conta exigem
 > re-assinatura (Save Wizard, Apollo ou similar).
 
-Títulos marcados com ⚠️ estão em zip dividido em volumes de 90 MB, porque o
-GitHub rejeita arquivos acima de 100 MB. Para restaurar, junte os volumes antes:
+Títulos marcados com ⚠️ têm arquivos divididos em partes de 90 MB, porque o
+GitHub rejeita arquivos acima de 100 MB. Para restaurar, junte as partes:
 
 ```bash
-zip -s 0 CUSA09209.zip --out completo.zip   # junta .z01, .z02... + .zip
-unzip completo.zip -d CUSA09209
+cd PS4/SAVEDATA/6f5440249bc89152/<CUSA>
+for f in $(ls *.part00 | sed "s/\.part00$//"); do
+  cat "$f".part* > "$f" && rm "$f".part*
+done
+sha256sum -c SHA256SUMS   # confere a integridade
 ```
 
 | | Título | CUSA | Slots | Tamanho |
@@ -25,7 +28,7 @@ unzip completo.zip -d CUSA09209
 | <img src="assets/icons/CUSA00498.webp" width="60"> | The Witness | `CUSA00498` | 1 | 3,0 MB |
 | <img src="assets/icons/CUSA00504.jpg" width="60"> | Beyond: Two Souls | `CUSA00504` | 2 | 36,0 MB |
 | <img src="assets/icons/CUSA00694.webp" width="60"> | Journey | `CUSA00694` | 1 | 10,0 MB |
-| <img src="assets/icons/CUSA00744.webp" width="60"> | Minecraft: PlayStation®4 Edition ⚠️ zip dividido | `CUSA00744` | 3 | 267,1 MB |
+| <img src="assets/icons/CUSA00744.webp" width="60"> | Minecraft: PlayStation®4 Edition ⚠️ arquivos divididos | `CUSA00744` | 9 | 267,1 MB |
 | <img src="assets/icons/CUSA00967.webp" width="60"> | Mortal Kombat X | `CUSA00967` | 3 | 30,0 MB |
 | <img src="assets/icons/CUSA01163.webp" width="60"> | Rocket League® | `CUSA01163` | 1 | 100,0 MB |
 | <img src="assets/icons/CUSA01347.jpg" width="60"> | Assassin's Creed Chronicles: China | `CUSA01347` | 1 | 10,0 MB |
@@ -49,7 +52,7 @@ unzip completo.zip -d CUSA09209
 | <img src="assets/icons/CUSA07104.webp" width="60"> | RESIDENT EVIL™ CODE: Veronica X | `CUSA07104` | 1 | 18,3 MB |
 | <img src="assets/icons/CUSA07820.webp" width="60"> | The Last of Us™ Part II | `CUSA07820` | 5 | 31,3 MB |
 | <img src="assets/icons/CUSA09072.webp" width="60"> | DRAGON BALL FighterZ | `CUSA09072` | 2 | 62,5 MB |
-| <img src="assets/icons/CUSA09209.webp" width="60"> | The Sims™ 4 ⚠️ zip dividido | `CUSA09209` | 6 | 526,1 MB |
+| <img src="assets/icons/CUSA09209.webp" width="60"> | The Sims™ 4 ⚠️ arquivos divididos | `CUSA09209` | 6 | 526,1 MB |
 | <img src="assets/icons/CUSA10090.webp" width="60"> | PRO EVOLUTION SOCCER 2018 LITE | `CUSA10090` | 2 | 14,4 MB |
 | <img src="assets/icons/CUSA14204.webp" width="60"> | EA SPORTS™ UFC® 4 | `CUSA14204` | 4 | 72,0 MB |
 | <img src="assets/icons/CUSA14655.webp" width="60"> | DRAGON BALL Z: KAKAROT | `CUSA14655` | 2 | 22,8 MB |
